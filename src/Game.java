@@ -3,9 +3,9 @@ import javax.swing.*;
 
 public class Game {
     private static final String TITLE = "Rock Paper Scissors";
-    int numberOfTies = 0;
-    private Player player = new Player();
-    private Player computer = new Player();
+    private int numberOfTies = 0;
+    private final Player player = new Player();
+    private final Player computer = new Player();
 
     public static void main(String[] args) {
         new Game().start();
@@ -31,8 +31,8 @@ public class Game {
     }
 
     private void reset() {
-        player = new Player();
-        computer = new Player();
+        player.setScore(0);
+        computer.setScore(0);
         numberOfTies = 0;
     }
 
@@ -45,7 +45,7 @@ public class Game {
             return;
         }
         computer.setChoice(Choice.getRandom());
-        JOptionPane.showMessageDialog(null, "The computer chose " + computer.getChoice() + "!");
+        JOptionPane.showMessageDialog(null, "The computer chose " + computer.getChoice() + "!", TITLE, JOptionPane.PLAIN_MESSAGE);
 
         checkWinnerAndUpdateScore();
     }
@@ -53,17 +53,17 @@ public class Game {
     private void checkWinnerAndUpdateScore() {
         if (player.getChoice() == computer.getChoice()){
             numberOfTies++;
-                JOptionPane.showMessageDialog(null, "It's a tie!");
+                JOptionPane.showMessageDialog(null, "It's a tie!", TITLE, JOptionPane.INFORMATION_MESSAGE);
         }
         else if (player.getChoice() == Choice.ROCK && computer.getChoice() == Choice.SCISSORS ||
                 player.getChoice() == Choice.SCISSORS && computer.getChoice() == Choice.PAPER ||
                 player.getChoice() == Choice.PAPER && computer.getChoice() == Choice.ROCK) {
             player.addPoint();
-            JOptionPane.showMessageDialog(null, "You Won!");
+            JOptionPane.showMessageDialog(null, "You Won!", TITLE, JOptionPane.INFORMATION_MESSAGE);
         }
         else {
             computer.addPoint();
-            JOptionPane.showMessageDialog(null, "The computer won!");
+            JOptionPane.showMessageDialog(null, "The computer won!", TITLE, JOptionPane.WARNING_MESSAGE);
         }
     }
 
